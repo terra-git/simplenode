@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             when {
-                branch 'feature'
+                env.CURRENT_BRANCH ==~ /.*feature.*/
             }
             steps {
                 git branch: 'feature',
@@ -14,7 +14,7 @@ pipeline {
 
         stage('Install Dependencies') {
             when {
-                branch 'feature'
+                env.CURRENT_BRANCH ==~ /.*feature.*/
             }
             steps {
                 echo "Feature branch detected via webhook, running npm install..."
