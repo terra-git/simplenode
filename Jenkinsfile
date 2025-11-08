@@ -2,15 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            when {
-                expression { env.BRANCH_NAME ==~ /.*feature.*/ }
-            }
+
+         stage('Set Branch Name') {
             steps {
-                git branch: 'feature',
-                    url: 'https://github.com/terra-git/simplenode.git'
+                script {
+                    env.BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+                    echo "Current branch is: ${env.BRANCH_NAME}"
+                }
             }
         }
+        
+        // stage('Checkout') {
+        //     when {
+        //         expression { env.BRANCH_NAME ==~ /.*feature.*/ }
+        //     }
+        //     steps {
+        //         git branch: 'feature',
+        //             url: 'https://github.com/terra-git/simplenode.git'
+        //     }
+        // }
 
         stage('Install Dependencies') {
             when {
