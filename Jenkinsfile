@@ -1,26 +1,19 @@
 pipeline {
     agent any
+    
+    environment {
+        // Automatically detect branch name for both job types
+        CURRENT_BRANCH = "${env.BRANCH_NAME ?: env.GIT_BRANCH}"
+    }
 
     stages {
-
-         stage('Set Branch Name') {
+        stage('Checkout') {
             steps {
-                script {
-                    env.BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
-                    echo "Current branch is: ${env.BRANCH_NAME}"
-                }
+                checkout scm
+                echo "✅ Checked out branch: ${env.CURRENT_BRANCH}"
             }
         }
-        
-        // stage('Checkout') {
-        //     when {
-        //         expression { env.BRANCH_NAME ==~ /.*feature.*/ }
-        //     }
-        //     steps {
-        //         git branch: 'feature',
-        //             url: 'https://github.com/terra-git/simplenode.git'
-        //     }
-        // }
+
 
         stage('Install Dependencies') {
             when {
