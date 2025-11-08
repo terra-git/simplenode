@@ -1,0 +1,30 @@
+{
+  "name": "simple-node-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha tests/**.test.js",
+    "test-watch": "nodemon --exec 'npm test'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronshivers/simple-node-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaronshivers/simple-node-app/issues"
+  },
+  "homepage": "https://github.com/aaronshivers/simple-node-app#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "expect": "^24.5.0",
+    "mocha": "^6.0.2",
+    "supertest": "^4.0.2"
+  }
+}
