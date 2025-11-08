@@ -1,8 +1,6 @@
 pipeline {
    
-     agent { 
-        label node
-    }
+    agent { label 'node' } 
     environment {
         // Automatically detect branch name for both job types
         CURRENT_BRANCH = "${env.BRANCH_NAME ?: env.GIT_BRANCH}"
