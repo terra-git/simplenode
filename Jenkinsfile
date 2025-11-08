@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment {
         // Automatically detect branch name for both job types
         CURRENT_BRANCH = "${env.BRANCH_NAME ?: env.GIT_BRANCH}"
@@ -14,18 +14,18 @@ pipeline {
             }
         }
 
-
         stage('Install Dependencies') {
             when {
-                expression { env.BRANCH_NAME ==~ /.*feature.*/ }
+                expression {
+                    // Run if branch name contains the word "feature"
+                    env.CURRENT_BRANCH ==~ /.*feature.*/
+                }
             }
             steps {
-                echo "Feature branch detected via webhook, running npm install..."
+                echo "🚀 Feature branch detected (${env.CURRENT_BRANCH}), running npm install..."
                 sh 'npm install'
             }
         }
     }
 }
-
-
 
