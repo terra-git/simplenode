@@ -1,10 +1,10 @@
 pipeline {
-   // agent { label 'node-agent' }
-   agent any
+    agent any
+
     stages {
         stage('Checkout') {
             when {
-                env.CURRENT_BRANCH ==~ /.*feature.*/
+                expression { env.BRANCH_NAME ==~ /.*feature.*/ }
             }
             steps {
                 git branch: 'feature',
@@ -14,7 +14,7 @@ pipeline {
 
         stage('Install Dependencies') {
             when {
-                env.CURRENT_BRANCH ==~ /.*feature.*/
+                expression { env.BRANCH_NAME ==~ /.*feature.*/ }
             }
             steps {
                 echo "Feature branch detected via webhook, running npm install..."
@@ -23,3 +23,6 @@ pipeline {
         }
     }
 }
+
+
+
